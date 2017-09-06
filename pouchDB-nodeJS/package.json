@@ -1,0 +1,17 @@
+{
+  "name": "pouchdb-nodejs",
+  "version": "1.0.0",
+  "description": "Uppgift 1 - ME1580",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sebastian Selin",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "nodemon": "^1.11.0",
+    "pouchdb": "^6.3.4"
+  }
+}
