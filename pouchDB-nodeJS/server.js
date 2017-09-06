@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+//index route till servern
 app.get('/', function (req, res) {
     if (!error) {
         console.log('Loaded...');

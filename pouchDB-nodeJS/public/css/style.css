@@ -1,0 +1,13 @@
+body {
+    background-color: #111116;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+.headtable {
+    padding: 10px;
+}
+.title {
+    font-family: 'Lato';
+    text-transform: uppercase;
+    font-size: 34px;
+    color:white;
+}

@@ -1,11 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
+
 <body>
-    <h1>Hello :3</h1>
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto">
+                <h1 class="title text-center"><img src="img/logo.png" alt="">vertos</h1>
+            </div>
+        </div>
+    </div>
+    <form action="http://localhost:3000/customers" method="post">
+        <div class="col-md-2 form-group">
+            <label>Email address</label>
+            <input type="text" class="form-control" name="firstname" placeholder="First Name">
+            <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+            <input type="text" class="form-control" name="Gender" placeholder="Gender">
+            <input type="text" class="form-control" name="address" placeholder="Address">
+            <input type="text" class="form-control" name="email" placeholder="E-mail">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron">
+                <table>
+
+                    <tr>
+                        <th style="padding: 10px;">
+                            <h1>First name</h1>
+                        </th>
+                        <th style="padding: 10px;">
+                            <h1>Last name</h1>
+                        </th>
+                        <th style="padding: 10px;">
+                            <h1>Gender </h1>
+                        </th>
+                        <th style="padding: 10px;">
+                            <h1>Address</h1>
+                        </th>
+                        <th style="padding: 10px;">
+                            <h1>Email</h1>
+                        </th>
+                    </tr>
+                    <tr class="text-center">
+                        <th>
+                            <p></p>
+                        </th>
+                        <th>
+                            <p></p>
+                        </th>
+                        <th>
+                            <p></p>
+                        </th>
+                        <th>
+                            <p></p>
+                        </th>
+                        <th>
+                            <p></p>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
 </body>
+<script>
+    //Denna kod skriver ut JSON datan från databasen i ett table
+    $(document).ready(function() {
+        $.getJSON("http://localhost:3000/customers", function(data) {
+            var json = data;
+            var tr;
+            for (var i = 0; i < json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + json[i].firstname + "</td>");
+                tr.append("<td>" + json[i].lastname + "</td>");
+                tr.append("<td>" + json[i].Gender + "</td>");
+                tr.append("<td>" + json[i].address + "</td>");
+                tr.append("<td>" + json[i].email + "</td>");
+                $('table').append(tr);
+            };
+        });
+    });
+
+</script>
+
 </html>
