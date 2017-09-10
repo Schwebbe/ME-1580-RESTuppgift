@@ -6,8 +6,18 @@ var error = Error('error');
 var bodyParser = require('body-parser');
 var pouchDB = require('pouchdb');
 
-var database = new pouchDB("http://localhost:5984/customers");
+//Här skapas en lokal databas variabel
+var database = new pouchDB("customers");
+//Här skickas krypterad data till couchDB databasen
+var remoteCouch = new pouchDB("http://localhost:5984/customers");
 
+
+sync();
+function sync() {
+    var opts = {live: true};
+    database.replicate.to(remoteCouch, opts);
+    database.replicate.from(remoteCouch, opts);
+} 
 
 app.use(express.static(path.join(__dirname, 'public')));
 //Här används en json-tolkare
@@ -44,12 +54,14 @@ app.get("/customers", function (req, res) {
 //Här postas ny data till routen customers och svarar med resultatet från databasen
 app.post("/customers", function (req, res) {
     database.post(req.body).then(function (result) {
-        res.send(result);
+        //Detta kommando gör så att när post requesten skickas itll servern, so respondar den med
+        //att refresha sidan via detta direktiv som anges
+        res.sendFile((path.join(__dirname, '/public/index.html')));
     });
 });
 //Här tas data bort från customers och returnerar resultaten från databasen 
-app.delete("/customers", function (req, res) {
-    database.get(req.body.id).then(function (result) {
+app.delete("/customers/:id", function (req, res) {
+    database.get(req.params.id).then(function (result) {
         return database.remove(result);
     }).then(function (result) {
         res.send(result);

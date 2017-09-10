@@ -1,12 +1,22 @@
 body {
     background-color: #111116;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    
+}
+
+.navbar-nav {
+    flex-direction:row;
+}
+.centertxt {
+    text-align: center;
+}
+.modal-footer {
+    border-top: transparent;
 }
 .headtable {
     padding: 10px;
 }
 .title {
-    font-family: 'Lato';
+    font-family: 'Lato' !important;
     text-transform: uppercase;
     font-size: 26px;
     color:white;
@@ -14,4 +24,27 @@ body {
 }
 .tablestyle {
     background-color: #111116;
+}
+
+.modaldark {
+    background-color: #111116;
+}
+.darkinput {
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 2px solid #262626 !important;
+}
+input {
+    background-color: transparent !important;
+   
+}
+.style-4 input[type="text"] {
+   
+    border: 2px solid transparent;
+   
+    
+}
+.style-4 input[type="text"]:focus,
+.style-4 input[type="text"].focus {
+    border-bottom: solid 2px #969696!important;
 }

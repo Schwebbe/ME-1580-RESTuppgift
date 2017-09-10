@@ -4,6 +4,7 @@
 
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    
     <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -24,30 +25,32 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
        
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content modaldark">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span style="color:white;" aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form class="form-inline" action="http://localhost:3000/customers" method="post">
                         <div class="col-md-4 form-group">
-                           
-                            <input type="text" class="form-control" name="firstname" placeholder="First Name">
-                            <input type="text" class="form-control" name="lastname" placeholder="Last Name">
-                            <input type="text" class="form-control" name="Gender" placeholder="Gender">
-                            <input type="text" class="form-control" name="address" placeholder="Address">
-                            <input type="text" class="form-control" name="email" placeholder="E-mail">
-                            
+                            <ul class="input-list style-4 clearfix">
+                            <input type="text" class="form-control darkinput" name="firstname" placeholder="First Name">
+                            <input type="text" class="form-control darkinput" name="lastname" placeholder="Last Name">
+                            <input type="text" class="form-control darkinput" name="Gender" placeholder="Gender">
+                            <input type="text" class="form-control darkinput" name="address" placeholder="Address">
+                            <input type="text" class="form-control darkinput " name="email" placeholder=" E-mail">
+                            </ul>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary my-2 my-sm-0" data-dismiss="modal">Close</button>
+                                <button type="submit" onClick="window.location.reload()" class="btn btn-outline-success my-2 my-sm-0">Submit</button>
+                            </div>
                         </div>
+                        
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -65,37 +68,47 @@
     <div class="container">
         <div class="row">
             <div class="mx-auto">
-                <h1 class="title text-center"><img src="img/logo.png" alt="">vertos</h1>
+                <h1 class="title text-center"><img src="img/logo.png" alt=""> &nbsp; &nbsp;vertos</h1>
             </div>
         </div>
     </div>
     
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
 
             <table class="table table-inverse tablestyle">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-                    Add Customer
+                <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#myModal">
+                  +  Add Customer
                 </button>
+                <button type="button" class="btn btn-outline-warning my-2 my-sm-0" data-toggle="modal" data-target="#myModal">
+                    Edit Customer
+                </button>
+                
             <tr>
                 <th style="padding: 10px;">
-                    <h5>First name</h5>
+                    <h5 style="text-align:center;">ID</h5>
                 </th>
                 <th style="padding: 10px;">
-                    <h5>Last name</h5>
+                    <h5 style="text-align:center;">First name</h5>
                 </th>
                 <th style="padding: 10px;">
-                    <h5>Gender </h5>
+                    <h5 style="text-align:center;">Last name</h5>
                 </th>
                 <th style="padding: 10px;">
-                    <h5>Address</h5>
+                    <h5 style="text-align: center;">Gender </h5>
                 </th>
                 <th style="padding: 10px;">
-                    <h5>Email</h5>
+                    <h5 style="text-align:center;">Address</h5>
+                </th>
+                <th style="padding: 10px;">
+                    <h5 style="text-align:center;">Email</h5>
                 </th>
                 </tr>
+                <th>
+                    <p></p>
 
+                </th>
                 <th>
                     <p></p>
 
@@ -126,6 +139,7 @@
     })
 
 </script>
+
 <script>
     //Denna kod skriver ut JSON datan från databasen i ett table
     $(document).ready(function() {
@@ -134,15 +148,31 @@
             var tr;
             for (var i = 0; i < json.length; i++) {
                 tr = $('<tr/>');
-                tr.append("<td>" + json[i].firstname + "</td>");
-                tr.append("<td>" + json[i].lastname + "</td>");
-                tr.append("<td>" + json[i].Gender + "</td>");
-                tr.append("<td>" + json[i].address + "</td>");
-                tr.append("<td>" + json[i].email + "</td>");
+                tr.append("<td class='id centertxt'>" + json[i]._id + "</td>");
+                tr.append("<td class='centertxt'>" + json[i].firstname + "</td>");
+                tr.append("<td class='centertxt'>" + json[i].lastname + "</td>");
+                tr.append("<td class='centertxt'>" + json[i].Gender + "</td>");
+                tr.append("<td class='centertxt'>" + json[i].address + "</td>");
+                tr.append("<td class='centertxt'>" + json[i].email + "</td>");
+                tr.append("<button type='button' class='del btn btn-outline-danger my-2 my-sm-0'><td>" + "Delete" + "</td></button>");
                 $('table').append(tr);
+                
+                //Delete knapp för varje kolumn
+                $('.del').click(function() {
+                    // Pull out ID.
+                    var row = $(this).closest("tr"); // Find the row.
+                    var text = row.find(".id").text(); // Find the row's content (ID).
+                    //Ajax delete funktion, HTML har bara post och get
+                    $.ajax({ 
+                        type: 'DELETE',
+                        url: 'http://localhost:3000/customers/' + text
+                    });
+                    window.location.reload();
+                });
             };
+            });
         });
-    });
+
 
 </script>
 
